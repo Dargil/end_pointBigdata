@@ -39,10 +39,10 @@ def new_evento(request):
 
         hashingTF = HashingTF(inputCol="filtered", outputCol="rawFeatures", numFeatures=2**16)
         featurizedData2 = hashingTF.transform(remover2)
-        idfModel2=IDFModel.load('idfmodel')
+        idfModel2=IDFModel.load('/home/jefferson/Big Data/Corte3/idfmodel')
 
         rescaledData2 = idfModel2.transform(featurizedData2)
-        sameModel = PipelineModel.load('sentiments_modelLG')
+        sameModel = PipelineModel.load('/home/jefferson/Big Data/Corte3/sentiments_modelLG')
         predictions2 = sameModel.transform(rescaledData2)
         result_data=predictions2.select("prediction", "indexedLabel").collect()
         prediction=result_data[0][0]
